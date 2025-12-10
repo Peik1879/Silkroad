@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Silkroad Usbekistan Tour</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      background: #0b0f18;
+      color: #fff;
+    }
+
+    /* ---------- HERO-BEREICH ---------- */
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+
+      /* HIER dein großes Hintergrundbild einfügen */
+      background-image:
+        linear-gradient(120deg, rgba(3, 16, 34, 0.85), rgba(0, 0, 0, 0.55)),
+        url("silkroad-background.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .overlay {
+      padding: 3rem 1.5rem 4rem;
+      max-width: 900px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 5vw, 3.8rem);
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .sub {
+      font-size: 1.1rem;
+      max-width: 650px;
+      margin: 0.5rem auto 2.5rem;
+      line-height: 1.6;
+      color: #f3f3f3;
+    }
+
+    /* Runder "Reise beginnen"-Button */
+
+    .start-circle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 3px dashed rgba(255, 255, 255, 0.7);
+      background: radial-gradient(circle at 30% 20%, #f6b15c, #a3571d);
+      color: #1c1308;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .start-circle:hover {
+      transform: translateY(-4px) rotate(-1.5deg);
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Buttons unter Reise beginnen */
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .btn {
+      padding: 0.9rem 1.8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      background: rgba(0, 0, 0, 0.35);
+      color: #fff;
+      font-size: 0.98rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(4px);
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #f6b15c;
+      border-color: #f6b15c;
+      color: #1c1308;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+      background-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .btn-primary:hover {
+      background: #ffc573;
+      border-color: #ffc573;
+    }
+
+    .info-strip {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.5);
+      color: #eee;
+      font-size: 0.9rem;
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      backdrop-filter: blur(6px);
+    }
+
+    .info-strip span {
+      white-space: nowrap;
+    }
+
+    @media (max-width: 600px) {
+      .info-strip {
+        width: calc(100% - 2rem);
+        text-align: center;
+      }
+    }
+
+    /* ---------- SCHATZKARTEN-REISEKARTE (VERTIKAL) ---------- */
+
+    .map-section {
+      padding: 4rem 1.5rem 5rem;
+      background: radial-gradient(circle at top, #f7f1dd 0, #e8ddbc 50%, #d3c59a 100%);
+      color: #3b2b15;
+    }
+
+    .map-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .map-title {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .map-title h2 {
+      font-size: 2.2rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .map-title p {
+      font-size: 0.95rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .map-layout-vertical {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+      gap: 2rem;
+    }
+
+    @media (max-width: 800px) {
+      .map-layout-vertical {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .map-canvas-vertical {
+      position: relative;
+      height: 900px;
+      background: #f9f2d9;
+      border-radius: 24px;
+      padding: 1.5rem;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+    }
+
+    .map-canvas-vertical::before {
+      content: "";
+      pointer-events: none;
+      position: absolute;
+      inset: 16px;
+      border: 2px dashed rgba(120, 85, 40, 0.55);
+      border-radius: 20px;
+    }
+
+    .route-path-vertical {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0 C 20 80, 80 140, 50 200 S 20 300, 50 400' fill='none' stroke='%23b26a2b' stroke-width='2' stroke-dasharray='6 8' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-size: 100% 100%;
+      opacity: 0.55;
+    }
+
+    .map-point {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #c0392b;
+      border: 3px solid #fff3cd;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      z-index: 2;
+    }
+
+    .map-point:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.45);
+      background: #e74c3c;
+    }
+
+    .map-point.active {
+      background: #27ae60;
+    }
+
+    .map-label-vertical {
+      position: absolute;
+      transform: translate(-50%, -130%);
+      background: rgba(255, 248, 224, 0.95);
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      color: #5a3a1f;
+      white-space: nowrap;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    .map-x-vertical {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%) rotate(-10deg);
+      bottom: 5%;
+      font-size: 4rem;
+      color: #c0392b;
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    .map-info {
+      background: #fdf6df;
+      border-radius: 24px;
+      padding: 1.8rem 1.6rem;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(148, 109, 61, 0.35);
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .map-info h3 {
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #5a3a1f;
+    }
+
+    .map-info span {
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #a07435;
+    }
+
+    .map-info p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #4b331a;
+    }
+
+    .map-meta {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #7a5a32;
+    }
+
+    /* ---------- EINFACHE BEREICHE FÜR ANKER ---------- */
+
+    .section {
+      padding: 3rem 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .section p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="overlay">
+      <div class="badge">Exklusive Kleingruppenreise · 2025</div>
+
+      <h1>Silkroad Usbekistan Tour</h1>
+
+      <p class="sub">
+        Wie auf einer Schatzkarte folgst du der alten Seidenstraße:
+        von Samarkand über Buchara bis Khiva – jede Station ein neues Abenteuer.
+      </p>
+
+      <!-- Runder Button -->
+      <button class="start-circle" id="startJourney">
+        Reise<br>beginnen
+      </button>
+
+      <!-- Buttons unter Reise beginnen -->
+      <div class="btn-row">
+        <a href="#anmeldung" class="btn btn-primary">Jetzt anmelden</a>
+        <a href="#termine" class="btn">Termine &amp; Preise</a>
+        <a href="#kontakt" class="btn">Kontakt &amp; Rückruf</a>
+      </div>
+    </div>
+
+    <div class="info-strip">
+      <span>10 Tage · Samarkand – Buchara – K
