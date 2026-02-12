@@ -1,378 +1,231 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <title>Silkroad Usbekistan Tour</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Silkroad Tour – Unvergessliche Reisen entlang der Seidenstraße</title>
+  <link rel="stylesheet" href="assets/css/styles_dark_restore.css">
+  <meta name="description" content="Entdecken Sie unsere exklusiven Touren entlang der historischen Seidenstraße. Von Usbekistan bis zu weiteren faszinierenden Destinationen.">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    body, html {
-      height: 100%;
-      background: #0b0f18;
-      color: #fff;
-    }
-
-    /* ---------- HERO-BEREICH ---------- */
-
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #fff;
-
-      /* HIER dein großes Hintergrundbild einfügen */
-      background-image:
-        linear-gradient(120deg, rgba(3, 16, 34, 0.85), rgba(0, 0, 0, 0.55)),
-        url("silkroad-background.jpg");
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-    }
-
-    .overlay {
-      padding: 3rem 1.5rem 4rem;
-      max-width: 900px;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 0.35rem 0.8rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      font-size: 0.9rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    h1 {
-      font-size: clamp(2.6rem, 5vw, 3.8rem);
-      margin-bottom: 0.75rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .sub {
-      font-size: 1.1rem;
-      max-width: 650px;
-      margin: 0.5rem auto 2.5rem;
-      line-height: 1.6;
-      color: #f3f3f3;
-    }
-
-    /* Runder "Reise beginnen"-Button */
-
-    .start-circle {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      border: 3px dashed rgba(255, 255, 255, 0.7);
-      background: radial-gradient(circle at 30% 20%, #f6b15c, #a3571d);
-      color: #1c1308;
-      font-weight: 700;
-      font-size: 1.1rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .start-circle:hover {
-      transform: translateY(-4px) rotate(-1.5deg);
-      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.8);
-    }
-
-    /* Buttons unter Reise beginnen */
-
-    .btn-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-      margin-top: 2rem;
-    }
-
-    .btn {
-      padding: 0.9rem 1.8rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.7);
-      background: rgba(0, 0, 0, 0.35);
-      color: #fff;
-      font-size: 0.98rem;
-      text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      transition: all 0.2s ease;
-      backdrop-filter: blur(4px);
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      background: #f6b15c;
-      border-color: #f6b15c;
-      color: #1c1308;
-      font-weight: 600;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
-      background-color: rgba(255, 255, 255, 0.12);
-    }
-
-    .btn-primary:hover {
-      background: #ffc573;
-      border-color: #ffc573;
-    }
-
-    .info-strip {
-      position: absolute;
-      bottom: 1.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 0.75rem 1.5rem;
-      border-radius: 999px;
-      background: rgba(0, 0, 0, 0.5);
-      color: #eee;
-      font-size: 0.9rem;
-      display: flex;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      backdrop-filter: blur(6px);
-    }
-
-    .info-strip span {
-      white-space: nowrap;
-    }
-
-    @media (max-width: 600px) {
-      .info-strip {
-        width: calc(100% - 2rem);
-        text-align: center;
-      }
-    }
-
-    /* ---------- SCHATZKARTEN-REISEKARTE (VERTIKAL) ---------- */
-
-    .map-section {
-      padding: 4rem 1.5rem 5rem;
-      background: radial-gradient(circle at top, #f7f1dd 0, #e8ddbc 50%, #d3c59a 100%);
-      color: #3b2b15;
-    }
-
-    .map-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .map-title {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    .map-title h2 {
-      font-size: 2.2rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-    }
-
-    .map-title p {
-      font-size: 0.95rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .map-layout-vertical {
+    .tours-grid {
       display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin: 60px 0;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 20px;
     }
-
-    @media (max-width: 800px) {
-      .map-layout-vertical {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .map-canvas-vertical {
-      position: relative;
-      height: 900px;
-      background: #f9f2d9;
-      border-radius: 24px;
-      padding: 1.5rem;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+    
+    .tour-card {
+      background: linear-gradient(135deg, rgba(139, 69, 19, 0.05) 0%, rgba(205, 133, 63, 0.05) 100%);
+      border: 2px solid #8B4513;
+      border-radius: 12px;
       overflow: hidden;
-    }
-
-    .map-canvas-vertical::before {
-      content: "";
-      pointer-events: none;
-      position: absolute;
-      inset: 16px;
-      border: 2px dashed rgba(120, 85, 40, 0.55);
-      border-radius: 20px;
-    }
-
-    .route-path-vertical {
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0 C 20 80, 80 140, 50 200 S 20 300, 50 400' fill='none' stroke='%23b26a2b' stroke-width='2' stroke-dasharray='6 8' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-size: 100% 100%;
-      opacity: 0.55;
-    }
-
-    .map-point {
-      position: absolute;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: #c0392b;
-      border: 3px solid #fff3cd;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-weight: 700;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-      z-index: 2;
-    }
-
-    .map-point:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.45);
-      background: #e74c3c;
-    }
-
-    .map-point.active {
-      background: #27ae60;
-    }
-
-    .map-label-vertical {
-      position: absolute;
-      transform: translate(-50%, -130%);
-      background: rgba(255, 248, 224, 0.95);
-      padding: 0.3rem 0.6rem;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      color: #5a3a1f;
-      white-space: nowrap;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
-    }
-
-    .map-x-vertical {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%) rotate(-10deg);
-      bottom: 5%;
-      font-size: 4rem;
-      color: #c0392b;
-      opacity: 0.85;
-      pointer-events: none;
-    }
-
-    .map-info {
-      background: #fdf6df;
-      border-radius: 24px;
-      padding: 1.8rem 1.6rem;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
-      border: 1px solid rgba(148, 109, 61, 0.35);
+      transition: all 0.3s ease;
+      position: relative;
+      text-decoration: none;
+      color: inherit;
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
     }
-
-    .map-info h3 {
-      font-size: 1.4rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #5a3a1f;
+    
+    .tour-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(139, 69, 19, 0.3);
+      border-color: #CD853F;
     }
-
-    .map-info span {
-      font-size: 0.85rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #a07435;
+    
+    .tour-card.coming-soon {
+      opacity: 0.7;
+      cursor: default;
     }
-
-    .map-info p {
-      font-size: 0.95rem;
+    
+    .tour-card.coming-soon:hover {
+      transform: translateY(-4px);
+    }
+    
+    .tour-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-bottom: 2px solid #FFD59A;
+    }
+    
+    .tour-content {
+      padding: 25px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .tour-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #8B4513;
+      margin-bottom: 12px;
+      font-family: 'Georgia', serif;
+    }
+    
+    .tour-description {
+      color: #555;
       line-height: 1.6;
-      color: #4b331a;
+      margin-bottom: 20px;
+      flex-grow: 1;
     }
-
-    .map-meta {
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
-      color: #7a5a32;
-    }
-
-    /* ---------- EINFACHE BEREICHE FÜR ANKER ---------- */
-
-    .section {
-      padding: 3rem 1.5rem;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .section h2 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
+    
+    .tour-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #8B4513 0%, #CD853F 100%);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.5px;
     }
-
-    .section p {
-      font-size: 1rem;
+    
+    .tour-badge.coming-soon {
+      background: linear-gradient(135deg, #999 0%, #bbb 100%);
+    }
+    
+    .hero-section {
+      text-align: center;
+      padding: 80px 20px 40px;
+      background: linear-gradient(135deg, rgba(139, 69, 19, 0.05) 0%, rgba(205, 133, 63, 0.05) 100%);
+      border-bottom: 3px solid #FFD59A;
+    }
+    
+    .hero-title {
+      font-size: 48px;
+      font-weight: 700;
+      color: #8B4513;
+      margin-bottom: 15px;
+      font-family: 'Georgia', serif;
+    }
+    
+    .hero-subtitle {
+      font-size: 20px;
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto 30px;
       line-height: 1.6;
-      color: #e0e0e0;
+    }
+    
+    .glow-divider {
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, #FFD59A, transparent);
+      margin: 0 auto 30px;
+      border-radius: 2px;
+    }
+    
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 36px;
+      }
+      
+      .tours-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- HERO -->
-  <section class="hero">
-    <div class="overlay">
-      <div class="badge">Exklusive Kleingruppenreise · 2025</div>
-
-      <h1>Silkroad Usbekistan Tour</h1>
-
-      <p class="sub">
-        Wie auf einer Schatzkarte folgst du der alten Seidenstraße:
-        von Samarkand über Buchara bis Khiva – jede Station ein neues Abenteuer.
-      </p>
-
-      <!-- Runder Button -->
-      <button class="start-circle" id="startJourney">
-        Reise<br>beginnen
-      </button>
-
-      <!-- Buttons unter Reise beginnen -->
-      <div class="btn-row">
-        <a href="#anmeldung" class="btn btn-primary">Jetzt anmelden</a>
-        <a href="#termine" class="btn">Termine &amp; Preise</a>
-        <a href="#kontakt" class="btn">Kontakt &amp; Rückruf</a>
-      </div>
+  <!-- STICKY HEADER -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="header-logo">
+        <img src="assets/images/logo.png" alt="Silkroad Tour Logo" class="logo-img">
+        <span class="logo-text">Silkroad Tour</span>
+      </a>
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link nav-link-primary">Startseite</a>
+        <a href="kontakt.html" class="nav-link">Kontakt</a>
+      </nav>
     </div>
+  </header>
 
-    <div class="info-strip">
-      <span>10 Tage · Samarkand – Buchara – K
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <h1 class="hero-title">🌍 Unvergessliche Seidenstraßen-Touren</h1>
+      <div class="glow-divider"></div>
+      <p class="hero-subtitle">
+        Erleben Sie die faszinierende Welt der historischen Seidenstraße. 
+        Von den prächtigen Städten Usbekistans bis zu weiteren einzigartigen Destinationen – 
+        entdecken Sie unsere sorgfältig kuratierten Reisen.
+      </p>
+    </section>
+
+    <!-- Tours Grid -->
+    <section class="section">
+      <div class="tours-grid">
+        
+        <!-- Tour 1: Usbekistan (Aktiv) -->
+        <a href="silkroad-usbekistan.html" class="tour-card">
+          <img src="assets/images/Roadmap/silkroad-background.jpg" alt="Usbekistan Silkroad Tour" class="tour-image">
+          <div class="tour-content">
+            <h2 class="tour-title">Usbekistan: Klassische Seidenstraße</h2>
+            <p class="tour-description">
+              13 Tage durch Taschkent, Samarkand, Buchara und Chiwa. 
+              Erleben Sie majestätische Moscheen, lebendige Basare und die herzliche Gastfreundschaft Zentralasiens.
+            </p>
+            <span class="tour-badge">Jetzt buchbar</span>
+          </div>
+        </a>
+
+        <!-- Tour 2: Kirgistan (Coming Soon) -->
+        <a href="coming-soon.html" class="tour-card coming-soon">
+          <img src="assets/images/Roadmap/DSC_3433 1.jpg" alt="Kirgistan Tour" class="tour-image">
+          <div class="tour-content">
+            <h2 class="tour-title">Kirgistan: Berge & Nomaden</h2>
+            <p class="tour-description">
+              Entdecken Sie spektakuläre Berglandschaften, kristallklare Seen und die traditionelle Nomadenkultur des Tien Shan.
+            </p>
+            <span class="tour-badge coming-soon">Bald verfügbar</span>
+          </div>
+        </a>
+
+        <!-- Tour 3: Georgien (Coming Soon) -->
+        <a href="coming-soon.html" class="tour-card coming-soon">
+          <img src="assets/images/Roadmap/DSC_3404 1.jpg" alt="Georgien Tour" class="tour-image">
+          <div class="tour-content">
+            <h2 class="tour-title">Georgien: Wein & Kultur</h2>
+            <p class="tour-description">
+              Tauchen Sie ein in 8000 Jahre Weinkultur, besuchen Sie mittelalterliche Klöster und genießen Sie die legendäre georgische Gastfreundschaft.
+            </p>
+            <span class="tour-badge coming-soon">Bald verfügbar</span>
+          </div>
+        </a>
+
+        <!-- Tour 4: Tadschikistan (Coming Soon) -->
+        <a href="coming-soon.html" class="tour-card coming-soon">
+          <img src="assets/images/Roadmap/BTE_4100 1.jpg" alt="Tadschikistan Tour" class="tour-image">
+          <div class="tour-content">
+            <h2 class="tour-title">Tadschikistan: Pamir Highway</h2>
+            <p class="tour-description">
+              Eine abenteuerliche Reise entlang einer der höchsten Straßen der Welt durch atemberaubende Hochgebirgslandschaften und abgelegene Dörfer.
+            </p>
+            <span class="tour-badge coming-soon">Bald verfügbar</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <nav aria-label="Footer navigation">
+      <a href="index.html">Startseite</a> ·
+      <a href="silkroad-usbekistan.html">Usbekistan Tour</a> ·
+      <a href="impressum.html">Impressum</a> ·
+      <a href="datenschutz.html">Datenschutz</a>
+    </nav>
+    <small>© 2025 Silkroad Tour · Kleinunternehmerregelung nach § 19 UStG</small>
+  </footer>
+</body>
+</html>

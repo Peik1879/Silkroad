@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kontakt – Silkroad Tour</title>
+  <link rel="stylesheet" href="assets/css/styles_dark_restore.css">
+  <meta name="description" content="Kontakt & Anfrage: Silkroad Tour. Fragen, Anmeldung und Rückrufservice.">
+</head>
+<body>
+  <!-- STICKY HEADER -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="header-logo">
+        <img src="assets/images/logo.png" alt="Silkroad Tour Logo" class="logo-img">
+        <span class="logo-text">Silkroad Tour</span>
+      </a>
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link">Übersicht</a>
+        <a href="silkroad-usbekistan.html" class="nav-link">Usbekistan Tour</a>
+        <a href="kontakt.html" class="nav-link nav-link-primary">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <h1>Kontakt & Anfrage</h1>
+      <div class="glow-divider" aria-hidden="true"></div>
+      <p class="section-intro">Schreiben Sie uns Ihre Anfrage. Wir antworten Ihnen schnellstmöglich!</p>
+
+      <div class="contact-form-wrapper">
+        <form id="contactForm" method="post" action="#">
+          <div class="form-group">
+            <label for="email">E-Mail <span class="required">*</span></label>
+            <input id="email" name="email" type="email" required placeholder="info@example.com">
+          </div>
+
+          <div class="form-group">
+            <label for="name">Vorname & Nachname <span class="optional">(optional)</span></label>
+            <input id="name" name="name" type="text" placeholder="Max Mustermann">
+          </div>
+
+          <div class="form-group">
+            <label for="message">Nachricht <span class="required">*</span></label>
+            <textarea id="message" name="message" rows="7" required placeholder="Erzählen Sie uns von Ihrem Reisewunsch..."></textarea>
+          </div>
+
+          <div class="form-group checkbox-group">
+            <label for="privacy" class="checkbox-label">
+              <input id="privacy" type="checkbox" name="privacy" required>
+              <span>Ich habe die <a href="datenschutz.html" class="privacy-link">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Daten einverstanden.</span>
+            </label>
+          </div>
+
+          <button class="btn btn-primary btn-large" type="submit">Anfrage absenden</button>
+        </form>
+        <div id="contactSuccess" style="display:none; margin-top:15px; padding:12px; background:#e7f6e7; color:#155724; border-left:4px solid #28a745; border-radius:4px;">Ihre Nachricht wurde erfolgreich gesendet. Wir melden uns zeitnah.</div>
+        <div id="contactError" style="display:none; margin-top:15px; padding:12px; background:#fdecea; color:#a33; border-left:4px solid #c33; border-radius:4px;"></div>
+      </div>
+
+      <div class="form-hint">
+        <p><strong>Hinweis:</strong> Dieses Formular ist clientseitig validiert. Für den tatsächlichen E-Mail-Versand ist ein serverseitiger Endpunkt oder ein Mail-Service erforderlich. Wir empfehlen die Absprache mit dem Hosting-Partner (z. B. All-Inkl, Netcup).</p>
+      </div>
+
+    </section>
+  </main>
+  <script src="assets/js/main.js" defer></script>
+  <footer class="site-footer" role="contentinfo">
+    <nav aria-label="Footer navigation">
+      <a href="index.html">Startseite</a> ·
+      <a href="tour.html">Tourübersicht</a> ·
+      <a href="impressum.html">Impressum</a> ·
+      <a href="datenschutz.html">Datenschutz</a>
+    </nav>
+    <small>© 2025 Silkroad Tour · Kleinunternehmerregelung nach § 19 UStG</small>
+  </footer>
+</body>
+</html>

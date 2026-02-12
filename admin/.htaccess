@@ -1,0 +1,20 @@
+# Admin-Bereich Zusatzschutz
+# Blockiere direkten Zugriff auf config.php
+
+<Files "config.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Optional: IP-Whitelist (auskommentieren und eigene IPs eintragen)
+# <RequireAll>
+#     Require ip 127.0.0.1
+#     Require ip 192.168.1.0/24
+# </RequireAll>

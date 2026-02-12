@@ -1,0 +1,25 @@
+# RewriteEngine on
+# RewriteCond %{HTTP:Authorization} ^(.*)
+# RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+
+# Sicherheitsheader
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# db.php vor direktem Zugriff schützen
+<FilesMatch "db\.php">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Kommentar: db.php ist ein Include und muss nicht direkt erreichbar sein
+# submit.php wird nur via POST aufgerufen
+
+# Direkten Zugriff auf db.php blocken
+<Files "db.php">
+  Require all denied
+</Files>

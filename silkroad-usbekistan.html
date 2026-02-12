@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Silkroad Usbekistan Tour</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Link to external stylesheet (assets/css/styles.css) -->
+  <link rel="stylesheet" href="assets/css/styles_dark_restore.css?v=20260111-18">
+  <!-- SEO & Open Graph -->
+  <meta name="description" content="Silkroad Tour – geführte 12-tägige Usbekistan-Reisen: Taschkent, Chiwa, Buchara, Samarkand. Kleine Gruppen, deutschsprachige Reiseleitung.">
+  <meta property="og:title" content="Silkroad Usbekistan Tour">
+  <meta property="og:description" content="Geführte Usbekistan-Touren: Taschkent, Chiwa, Buchara, Samarkand. Kleine Gruppen, deutschsprachige Reiseleitung.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.silkroadtour.de/">
+  <meta property="og:image" content="assets/images/og-image.jpg">
+  <link rel="canonical" href="https://www.silkroadtour.de/">
+</head>
+<body>
+  <!-- STICKY HEADER -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="header-logo">
+        <img src="assets/images/logo.png" alt="Silkroad Tour Logo" class="logo-img">
+        <span class="logo-text">Silkroad Tour</span>
+      </a>
+      <nav class="header-nav">
+        <a href="#reise" class="nav-link">Reise</a>
+        <a href="#anmeldung" class="nav-link">Anmeldung</a>
+        <a href="#weitere-infos" class="nav-link">Weitere Infos</a>
+        <a href="#termine" class="nav-link">Termine</a>
+        <a href="#kontakt" class="nav-link nav-link-primary">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="overlay">
+      <div class="badge">Exklusive Kleingruppenreise · 2025</div>
+
+      <h1>Silkroad Usbekistan Tour</h1>
+
+      <p class="sub">
+        Wie auf einer Schatzkarte folgst du der alten Seidenstraße:
+        von Taschkent über Chiwa, Buchara und Samarkand – jede Station ein neues Abenteuer.
+      </p>
+
+      <!-- Runder Button -->
+      <button class="start-circle" id="startJourney">
+        Reise<br>beginnen
+      </button>
+
+      <!-- Buttons unter Reise beginnen -->
+      <div class="btn-row">
+        <a href="#anmeldung" class="btn btn-primary">Jetzt anmelden</a>
+        <a href="tour.html" class="btn">Termine &amp; Preise</a>
+        <a href="kontakt.html" class="btn">Kontakt &amp; Rückruf</a>
+      </div>
+    </div>
+
+    <div class="info-strip">
+      <span>12 Tage · Taschkent – Chiwa – Buchara – Samarkand</span>
+      <span>Max. 12 Teilnehmer</span>
+      <span>Deutschsprachige Reiseleitung</span>
+    </div>
+  </section>
+
+  <!-- Karten-Popup (versteckt) -->
+  <div class="map-popup" id="mapPopup" style="display: none;">
+    <button class="map-close" id="closeMapPopup" aria-label="Karte schließen">&times;</button>
+    <div class="map-bg-fullscreen">
+      <img class="map-corner-logo" src="assets/images/logo.png" alt="Silkroad Tour Logo">
+      <svg class="map-routes" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M27 48 Q30 50 68 53" class="route route-gray" />
+        <path d="M32 45 Q50 30 50 50 Q50 90 57 60 L65 70 L75 53" class="route route-red" />
+      </svg>
+      <button class="map-pin sticker active" data-stop="tag1_2" aria-label="Taschkent" style="left: 63%; top: 30%; background-image: url('assets/images/Karte/Tashkent_Sticker.png');"></button>
+      <button class="map-pin sticker" data-stop="tag3" aria-label="Chiwa" style="left: 13%; top: 28%; background-image: url('assets/images/Karte/Khiwa_Sticker.png');"></button>
+      <button class="map-pin sticker" data-stop="tag4" aria-label="Kysylkum-Wüste" style="left: 33%; top: 26%; background-image: url('assets/images/Karte/kysylkum_sticker.png');"></button>
+      <button class="map-pin sticker" data-stop="tag5_6" aria-label="Buchara" style="left: 40%; top: 52%; background-image: url('assets/images/Karte/Bukhara_Sticker.png');"></button>
+      <button class="map-pin sticker" data-stop="tag7" aria-label="Nurata" style="left: 46%; top: 38%; background-image: url('assets/images/Karte/Nurata_Sticker.png');"></button>
+      <button class="map-pin sticker" data-stop="tag9" aria-label="Samarkand" style="left: 55%; top: 45%; background-image: url('assets/images/Karte/Sarmarkand_Sticker.png');"></button>
+    </div>
+  </div>
+
+  <!-- Details-Popup für Sticker-Infos (versteckt) -->
+  <div class="details-popup" id="detailsPopup" style="display: none;">
+    <button class="details-close" id="closeDetailsPopup" aria-label="Details schließen">&times;</button>
+    <div class="details-content">
+      <div class="details-header">
+        <h3 id="detailsTag"></h3>
+        <h2 id="detailsTitle"></h2>
+      </div>
+      <div class="details-body">
+        <div class="details-slideshow">
+          <div class="details-slideshow-wrapper" id="detailsSlideshow">
+            <!-- Images will be inserted here by JS -->
+          </div>
+          <div class="slideshow-controls">
+            <button class="slide-prev" id="detailsPrev">❮ Prev</button>
+            <button class="slide-next" id="detailsNext">Next ❯</button>
+          </div>
+        </div>
+        <div class="details-text">
+          <p id="detailsDescription"></p>
+          <div id="detailsProgram"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REISE BEGINNEN - Tagesabläufe -->
+  <section class="map-section" id="reise">
+    <!-- Tagesablauf mit Text und Diashow -->
+    <div class="itinerary-full">
+      
+      <div class="itinerary-day" data-stop="tag1_2">
+        <div class="day-content">
+          <div class="day-text">
+            <h3 id="day1-tag">Tag 1–2 · Taschkent</h3>
+            <h2 id="day1-title">Ankunft in Taschkent</h2>
+            <p id="day1-text">Willkommen in Usbekistan! Wir sind stolz darauf, Ihnen unser historisches Erbe vorzustellen und unsere herzliche Gastfreundschaft zu zeigen. Ankunft in Taschkent. Treffen am Flughafen und Transfer in ein Hotel.</p>
+            <div id="day1-details" style="margin-top: 1rem; padding: 1rem; background: rgba(255, 213, 154, 0.1); border-radius: 8px;"><strong style="color: #ffd59a;">Programm:</strong><br>Empfang am Flughafen · Transfer zum Hotel · Zeit zum Ankommen</div>
+          </div>
+          <div class="day-slideshow">
+            <div class="slideshow-wrapper">
+              <img class="slide-image active" src="assets/images/Roadmap/BTE_4100 1.jpg" alt="Taschkent">
+              <img class="slide-image" src="assets/images/Roadmap/DSC_3404 1.jpg" alt="Taschkent">
+              <img class="slide-image" src="assets/images/Roadmap/DSC_3433 1.jpg" alt="Taschkent">
+              <img class="slide-image" src="assets/images/Roadmap/9wjP9L-C.jpeg.jpg" alt="Taschkent">
+              <img class="slide-image" src="assets/images/Roadmap/GiipUl6t.jpeg.jpg" alt="Taschkent">
+              <img class="slide-image" src="assets/images/Roadmap/pt1XnREC.jpeg.jpg" alt="Taschkent">
+              <img class="slide-image" src="assets/images/Roadmap/PyaoAlFS.jpeg.jpg" alt="Taschkent">
+              <img class="slide-image" src="assets/images/Roadmap/q6fa48KT.jpeg.jpg" alt="Taschkent">
+              <img class="slide-image" src="assets/images/Roadmap/tfSQRQO8.jpeg.jpg" alt="Taschkent">
+              <img class="slide-image" src="assets/images/Roadmap/silkroad-background.jpg" alt="Taschkent">
+            </div>
+            <div class="slideshow-controls">
+              <button class="slide-prev">❮ Prev</button>
+              <button class="slide-next">Next ❯</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="itinerary-day" data-stop="tag3">
+        <div class="day-content">
+          <div class="day-text">
+            <h3 id="day3-tag">Tag 3 · Taschkent – Chiwa</h3>
+            <h2 id="day3-title">Flug nach Chiwa</h2>
+            <p id="day3-text">Morgenflug nach Chiwa. Dies ist eine der ältesten Städte im Osten. Die Exkursion findet in Ichan Kala, der Innenstadt von Chiwa, statt. Die Mauern von Ichan Kala umgeben mehr als 60 Gebäude, darunter Moscheen, Schulen und königliche Residenzen. Dank der UNESCO ist dieser Teil von Chiwa geschützt, um seine Originalität zu erhalten.</p>
+            <div id="day3-details" style="margin-top: 1rem; padding: 1rem; background: rgba(255, 213, 154, 0.1); border-radius: 8px;"><strong style="color: #ffd59a;">Programm:</strong><br>Frühstück im Hotel und Check-out · Transfer zum Flughafen · Morgenflug nach Urgench · Kurze Reise nach Chiwa · Stadtrundfahrt · Mittagessen im nationalen Restaurant · Abendessen im nationalen Restaurant</div>
+          </div>
+          <div class="day-slideshow">
+            <div class="slideshow-wrapper">
+              <img class="slide-image active" src="assets/images/Roadmap/BTE_4100 1.jpg" alt="Chiwa">
+              <img class="slide-image" src="assets/images/Roadmap/DSC_3404 1.jpg" alt="Chiwa">
+              <img class="slide-image" src="assets/images/Roadmap/DSC_3433 1.jpg" alt="Chiwa">
+              <img class="slide-image" src="assets/images/Roadmap/9wjP9L-C.jpeg.jpg" alt="Chiwa">
+              <img class="slide-image" src="assets/images/Roadmap/GiipUl6t.jpeg.jpg" alt="Chiwa">
+              <img class="slide-image" src="assets/images/Roadmap/pt1XnREC.jpeg.jpg" alt="Chiwa">
+              <img class="slide-image" src="assets/images/Roadmap/PyaoAlFS.jpeg.jpg" alt="Chiwa">
+              <img class="slide-image" src="assets/images/Roadmap/q6fa48KT.jpeg.jpg" alt="Chiwa">
+              <img class="slide-image" src="assets/images/Roadmap/tfSQRQO8.jpeg.jpg" alt="Chiwa">
+              <img class="slide-image" src="assets/images/Roadmap/silkroad-background.jpg" alt="Chiwa">
+            </div>
+            <div class="slideshow-controls">
+              <button class="slide-prev">❮ Prev</button>
+              <button class="slide-next">Next ❯</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="itinerary-day" data-stop="tag4">
+        <div class="day-content">
+          <div class="day-text">
+            <h3 id="day4-tag">Tag 4 · Chiwa – Buchara</h3>
+            <h2 id="day4-title">Durch die Kysylkum-Wüste</h2>
+            <p id="day4-text">Für heute ist ein spannender Road Trip geplant. Das Fahrzeug bringt uns durch die legendäre Wüste Kysylkum nach Buchara. Auf dem Weg dorthin werden wir malerische Landschaften reinster Natur bewundern. In der Mittagspause wird ein Picknick gemacht. Sobald wir das Hotel erreichen, ist der Rest des Tages frei, sodass Sie sich nach der Fahrt entspannen können.</p>
+            <div id="day4-details" style="margin-top: 1rem; padding: 1rem; background: rgba(255, 213, 154, 0.1); border-radius: 8px;"><strong style="color: #ffd59a;">Programm:</strong><br>Frühstück im Hotel und Check-out · Fahrt nach Buchara (7 Stunden) · Picknick unterwegs · Abendessen im nationalen Restaurant</div>
+          </div>
+          <div class="day-slideshow">
+            <div class="slideshow-wrapper">
+              <img class="slide-image active" src="assets/images/Roadmap/BTE_4100 1.jpg" alt="Kysylkum">
+              <img class="slide-image" src="assets/images/Roadmap/DSC_3404 1.jpg" alt="Kysylkum">
+              <img class="slide-image" src="assets/images/Roadmap/DSC_3433 1.jpg" alt="Kysylkum">
+              <img class="slide-image" src="assets/images/Roadmap/9wjP9L-C.jpeg.jpg" alt="Kysylkum">
+              <img class="slide-image" src="assets/images/Roadmap/GiipUl6t.jpeg.jpg" alt="Kysylkum">
+              <img class="slide-image" src="assets/images/Roadmap/pt1XnREC.jpeg.jpg" alt="Kysylkum">
+              <img class="slide-image" src="assets/images/Roadmap/PyaoAlFS.jpeg.jpg" alt="Kysylkum">
+              <img class="slide-image" src="assets/images/Roadmap/q6fa48KT.jpeg.jpg" alt="Kysylkum">
+              <img class="slide-image" src="assets/images/Roadmap/tfSQRQO8.jpeg.jpg" alt="Kysylkum">
+              <img class="slide-image" src="assets/images/Roadmap/silkroad-background.jpg" alt="Kysylkum">
+            </div>
+            <div class="slideshow-controls">
+              <button class="slide-prev">❮ Prev</button>
+              <button class="slide-next">Next ❯</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="itinerary-day" data-stop="tag7">
+        <div class="day-content">
+          <div class="day-text">
+            <h3 id="day7-tag">Tag 7 · Buchara – Nurata – Aydarkulsee</h3>
+            <h2 id="day7-title">Zum Aydarkulsee & Jurtenlager</h2>
+            <p id="day7-text">Der Höhepunkt der Reise ist eine Fahrt zum Aydarkul-See, dem Herzen der Wüste Kysylkum. Am Abend essen wir am Lagerfeuer und hören den östlichen Legenden zu, die von Akin erzählt werden (lokaler Geschichtenerzähler). Die Nacht wird in nomadischen Jurten verbracht.</p>
+            <div id="day7-details" style="margin-top: 1rem; padding: 1rem; background: rgba(255, 213, 154, 0.1); border-radius: 8px;"><strong style="color: #ffd59a;">Programm:</strong><br>Frühstück im Hotel und Check-out · Autofahrt nach Nurata · Stadtrundfahrt · Mittagessen im örtlichen Café · Fahrt nach Aydarkul · Übernachtung und Abendessen im Jurtencamp</div>
+          </div>
+          <div class="day-slideshow">
+            <div class="slideshow-wrapper">
+              <img class="slide-image active" src="assets/images/Roadmap/BTE_4100 1.jpg" alt="Aydarkulsee">
+              <img class="slide-image" src="assets/images/Roadmap/DSC_3404 1.jpg" alt="Aydarkulsee">
+              <img class="slide-image" src="assets/images/Roadmap/DSC_3433 1.jpg" alt="Aydarkulsee">
+              <img class="slide-image" src="assets/images/Roadmap/9wjP9L-C.jpeg.jpg" alt="Aydarkulsee">
+              <img class="slide-image" src="assets/images/Roadmap/GiipUl6t.jpeg.jpg" alt="Aydarkulsee">
+              <img class="slide-image" src="assets/images/Roadmap/pt1XnREC.jpeg.jpg" alt="Aydarkulsee">
+              <img class="slide-image" src="assets/images/Roadmap/PyaoAlFS.jpeg.jpg" alt="Aydarkulsee">
+              <img class="slide-image" src="assets/images/Roadmap/q6fa48KT.jpeg.jpg" alt="Aydarkulsee">
+              <img class="slide-image" src="assets/images/Roadmap/tfSQRQO8.jpeg.jpg" alt="Aydarkulsee">
+              <img class="slide-image" src="assets/images/Roadmap/silkroad-background.jpg" alt="Aydarkulsee">
+            </div>
+            <div class="slideshow-controls">
+              <button class="slide-prev">❮ Prev</button>
+              <button class="slide-next">Next ❯</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="itinerary-day" data-stop="tag9">
+        <div class="day-content">
+          <div class="day-text">
+            <h3 id="day9-tag">Tag 9 · Samarkand</h3>
+            <h2 id="day9-title">Samarkand intensiv</h2>
+            <p id="day9-text">Hier das Programm: Die erste Hälfte des Tages wird der Stadtrundfahrt gewidmet sein. Anschließend nehmen Sie an der kulinarischen Meisterklasse teil, bei der Sie ein traditionelles usbekisches Gericht zubereiten. Eine Weinverkostung ist die Belohnung für die Zubereitung einer leckeren Mahlzeit.</p>
+            <div id="day9-details" style="margin-top: 1rem; padding: 1rem; background: rgba(255, 213, 154, 0.1); border-radius: 8px;"><strong style="color: #ffd59a;">Programm:</strong><br>Frühstück im Hotel · Stadtrundfahrt · Mittagessen im nationalen Restaurant · Kulinarische Meisterklasse · Weinverkostung · Abendessen im nationalen Restaurant</div>
+          </div>
+          <div class="day-slideshow">
+            <div class="slideshow-wrapper">
+              <img class="slide-image active" src="assets/images/Roadmap/BTE_4100 1.jpg" alt="Samarkand">
+              <img class="slide-image" src="assets/images/Roadmap/DSC_3404 1.jpg" alt="Samarkand">
+              <img class="slide-image" src="assets/images/Roadmap/DSC_3433 1.jpg" alt="Samarkand">
+              <img class="slide-image" src="assets/images/Roadmap/9wjP9L-C.jpeg.jpg" alt="Samarkand">
+              <img class="slide-image" src="assets/images/Roadmap/GiipUl6t.jpeg.jpg" alt="Samarkand">
+              <img class="slide-image" src="assets/images/Roadmap/pt1XnREC.jpeg.jpg" alt="Samarkand">
+              <img class="slide-image" src="assets/images/Roadmap/PyaoAlFS.jpeg.jpg" alt="Samarkand">
+              <img class="slide-image" src="assets/images/Roadmap/q6fa48KT.jpeg.jpg" alt="Samarkand">
+              <img class="slide-image" src="assets/images/Roadmap/tfSQRQO8.jpeg.jpg" alt="Samarkand">
+              <img class="slide-image" src="assets/images/Roadmap/silkroad-background.jpg" alt="Samarkand">
+            </div>
+            <div class="slideshow-controls">
+              <button class="slide-prev">❮ Prev</button>
+              <button class="slide-next">Next ❯</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ANMELDUNG -->
+  <section class="section registration-section" id="anmeldung">
+    <div class="registration-container">
+      <div class="registration-content">
+        <!-- Linke Seite: Formular -->
+        <div class="registration-form-side">
+          <div class="registration-header">
+            <h2>Jetzt anmelden</h2>
+            <p class="registration-intro">
+              Melden Sie sich jetzt für Ihre Rundreise an und entdecken Sie die faszinierende Kultur
+              und Geschichte entlang der Seidenstraße.
+            </p>
+          </div>
+
+          <form class="registration-form" id="registrationForm">
+            <div class="form-group">
+              <label for="fullname">Vor- und Nachname</label>
+              <input type="text" id="fullname" name="fullname" placeholder="Max Mustermann" required>
+            </div>
+
+            <div class="form-group">
+              <label for="email">E-Mail Adresse *</label>
+              <input type="email" id="email" name="email" placeholder="mustermann@example.com" required>
+            </div>
+
+            <div class="form-group">
+              <label for="telefon">Telefonnummer (optional)</label>
+              <input type="tel" id="telefon" name="telefon" placeholder="+49 170 1234567">
+            </div>
+
+            <div class="form-group">
+              <label for="reisedatum">Reisedatum</label>
+              <select id="reisedatum" name="reisedatum" required>
+                <option value="">Anzahl auswählen</option>
+                <option value="15.03.2026-27.03.2026">15. März - 27. März 2026</option>
+                <option value="12.04.2026-24.04.2026">12. April - 24. April 2026</option>
+                <option value="10.05.2026-22.05.2026">10. Mai - 22. Mai 2026</option>
+                <option value="07.06.2026-19.06.2026">07. Juni - 19. Juni 2026</option>
+                <option value="05.09.2026-17.09.2026">05. September - 17. September 2026</option>
+                <option value="03.10.2026-15.10.2026">03. Oktober - 15. Oktober 2026</option>
+                <option value="07.11.2026-19.11.2026">07. November - 19. November 2026</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Anzahl der Personen</label>
+              <div class="travelers-section">
+                <div class="traveler-row">
+                  <div class="traveler-info">
+                    <span class="traveler-label">Erwachsene</span>
+                    <span class="traveler-sublabel">ab 12 Jahren</span>
+                  </div>
+                  <div class="counter-controls">
+                    <button type="button" class="counter-btn" data-target="erwachsene" data-action="decrease">−</button>
+                    <span class="counter-value" id="erwachsene" aria-live="polite">1</span>
+                    <button type="button" class="counter-btn" data-target="erwachsene" data-action="increase">+</button>
+                  </div>
+                </div>
+
+                <div class="traveler-row">
+                  <div class="traveler-info">
+                    <span class="traveler-label">Kinder</span>
+                    <span class="traveler-sublabel">2–11 Jahre</span>
+                  </div>
+                  <div class="counter-controls">
+                    <button type="button" class="counter-btn" data-target="kinder" data-action="decrease">−</button>
+                    <span class="counter-value" id="kinder" aria-live="polite">0</span>
+                    <button type="button" class="counter-btn" data-target="kinder" data-action="increase">+</button>
+                  </div>
+                </div>
+
+                <div class="traveler-row">
+                  <div class="traveler-info">
+                    <span class="traveler-label">Kleinkinder</span>
+                    <span class="traveler-sublabel">unter 2</span>
+                  </div>
+                  <div class="counter-controls">
+                    <button type="button" class="counter-btn" data-target="kleinkinder" data-action="decrease">−</button>
+                    <span class="counter-value" id="kleinkinder" aria-live="polite">0</span>
+                    <button type="button" class="counter-btn" data-target="kleinkinder" data-action="increase">+</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="wuensche">Informationen / Wünsche</label>
+              <textarea id="wuensche" name="wuensche" rows="4" placeholder="z.B. Allergien, Krankheiten, besondere Wünsche..."></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary btn-submit">Jetzt anmelden</button>
+            </div>
+
+            <div class="form-success" id="formSuccess">
+              <div class="success-icon">✓</div>
+              <h3>Wir freuen uns auf Sie!</h3>
+              <p>Vielen Dank für Ihr Interesse! Wir haben Ihre Anmeldung erhalten und werden uns in den nächsten Tagen bei Ihnen melden.</p>
+              <p style="margin-top: 15px; color: #667eea; font-weight: 600;">
+                📧 Prüfen Sie auch Ihren Spam-Ordner<br>
+                📞 Bei Fragen: 0170 - 7222 110
+              </p>
+            </div>
+
+            <div class="form-error" id="formError">
+              <div class="error-icon">✕</div>
+              <h3>Ein Fehler ist aufgetreten</h3>
+              <p>Bitte überprüfen Sie Ihre Eingaben und versuchen Sie es erneut.</p>
+            </div>
+          </form>
+
+          <div class="whatsapp-contact">
+            <p>Fragen? Kontaktieren Sie uns!</p>
+            <p class="contact-subtitle">Wir sind auch per WhatsApp für Sie erreichbar.</p>
+            <a href="https://wa.me/491701234567" class="whatsapp-link" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              0170 - 7222 110
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEITERE INFORMATIONEN -->
+  <section class="section info-cards-section" id="weitere-infos">
+    <h2>Weitere Informationen</h2>
+    <div class="glow-divider" aria-hidden="true"></div>
+    <p class="section-intro">Erfahren Sie mehr über unsere Touren, Unterkünfte, Reisebusse und wichtige Vorbereitungen.</p>
+    
+    <div class="info-cards-grid">
+      <a href="tour.html" class="info-card">
+        <div class="info-card-icon">🗺️</div>
+        <h3>Tourübersicht</h3>
+        <p>Detaillierte Informationen zu unseren Touren, Leistungen und Reiseverläufen.</p>
+      </a>
+
+      <a href="accommodation.html" class="info-card">
+        <div class="info-card-icon">🏨</div>
+        <h3>Unterkünfte</h3>
+        <p>Authentische Hotels und Gästehäuser entlang der Seidenstraße.</p>
+      </a>
+
+      <a href="buses-flights.html" class="info-card">
+        <div class="info-card-icon">✈️</div>
+        <h3>Busse & Flüge</h3>
+        <p>Kleine Gruppen, komfortable Busse und renommierte Fluggesellschaften.</p>
+      </a>
+
+      <a href="preparation.html" class="info-card">
+        <div class="info-card-icon">📋</div>
+        <h3>Reisevorbereitung</h3>
+        <p>Visa, Gesundheit, Versicherungen und praktische Tipps für Ihre Reise.</p>
+      </a>
+
+      <a href="terms.html" class="info-card">
+        <div class="info-card-icon">📜</div>
+        <h3>Allgemeine Bedingungen</h3>
+        <p>Wichtige Hinweise zu Buchung, Teilnehmerzahl und Reiseorganisation.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- TERMINE & PREISE -->
+  <section class="section" id="termine">
+    <h2>Termine &amp; Preise</h2>
+    <div class="glow-divider" aria-hidden="true"></div>
+    <p class="section-intro">Wählen Sie Ihren Wunschtermin für unsere exklusive Usbekistan-Rundreise.</p>
+    
+    <div class="dates-grid">
+      <article class="date-card">
+        <div class="date-header">
+          <div class="month">April</div>
+          <div class="days">06.–17.</div>
+          <div class="year">2026</div>
+        </div>
+        <div class="date-status status-ok">
+          <span class="status-dot"></span>
+          Restplätze verfügbar
+        </div>
+        <a href="#anmeldung" class="btn btn-primary">Jetzt buchen</a>
+      </article>
+
+      <article class="date-card featured">
+        <div class="date-header">
+          <div class="month">Mai</div>
+          <div class="days">11.–22.</div>
+          <div class="year">2026</div>
+        </div>
+        <div class="date-status status-guaranteed">
+          <span class="status-dot"></span>
+          Garantiert
+        </div>
+        <a href="#anmeldung" class="btn btn-primary">Jetzt buchen</a>
+      </article>
+
+      <article class="date-card">
+        <div class="date-header">
+          <div class="month">September</div>
+          <div class="days">08.–19.</div>
+          <div class="year">2026</div>
+        </div>
+        <div class="date-status status-early">
+          <span class="status-dot"></span>
+          Frühbucher-Vorteil
+        </div>
+        <a href="#anmeldung" class="btn btn-primary">Jetzt buchen</a>
+      </article>
+    </div>
+
+    <div class="pricing-divider"></div>
+
+    <div class="single-offering">
+      <div class="offering-header">
+        <h3>12-tägige Usbekistan Rundreise</h3>
+        <div class="price"><span class="amount">ab 1.990 €</span><span class="per">pro Person im Doppelzimmer</span></div>
+      </div>
+      
+      <div class="offering-content">
+        <div class="features-col">
+          <h4>Leistungen inklusive</h4>
+          <ul class="features">
+            <li>11 Übernachtungen in ausgewählten Hotels</li>
+            <li>Frühstück täglich, 3 Abendessen</li>
+            <li>Alle Inlandsflüge &amp; Transfers</li>
+            <li>Deutschsprachige Reiseleitung</li>
+            <li>Ausgewählte Eintritte &amp; Besichtigungen</li>
+            <li>Kleine Gruppenreise (max. 14 Personen)</li>
+          </ul>
+        </div>
+        
+        <div class="cta-col">
+          <div class="highlight-box">
+            <p class="highlight-text">Individuelle Anpassungen und Privatreisen auf Anfrage möglich</p>
+            <a href="#anmeldung" class="btn btn-primary btn-large">Unverbindlich anfragen</a>
+            <a href="#kontakt" class="btn secondary">Beratung anfordern</a>
+          </div>
+        </div>
+      </div>
+
+      <p class="small-note">Einzelzimmerzuschlag ab 390 €. Internationale Flüge nicht im Preis enthalten.</p>
+    </div>
+
+    <div class="trust-row" aria-label="Buchungshinweise">
+      <div class="trust-item">Sichere Buchung</div>
+      <div class="trust-item">Kostenlose Stornierung bis 30 Tage</div>
+      <div class="trust-item">Kleine Gruppen (max. 14)</div>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
+  <section class="section" id="kontakt">
+    <h2>Kontakt & Rückruf</h2>
+    <div class="glow-divider" aria-hidden="true"></div>
+    <p class="section-intro">
+      Schreiben Sie uns eine Nachicht über unser Formular, E-Mail oder hinterlassen Sie Ihre Nummer für einen persönlichen
+      Rückruf. 
+    </p>
+    <div style="margin-top: 2rem; text-align: center;">
+      <a href="kontakt.html" class="btn btn-primary btn-large">Zum Kontaktformular</a>
+    </div>
+  </section>
+
+  <script>
+    // ========== SCROLL IMMER OBEN BEIM LADEN ==========
+    if (history.scrollRestoration) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
+    // ========== AUTO-SLIDESHOW ==========
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Starting slideshow initialization...');
+      
+      const days = document.querySelectorAll('.itinerary-day');
+      console.log('Found days:', days.length);
+      
+      days.forEach((day, dayIndex) => {
+        const images = day.querySelectorAll('.slide-image');
+        const prevBtn = day.querySelector('.slide-prev');
+        const nextBtn = day.querySelector('.slide-next');
+        
+        console.log(`Day ${dayIndex}: Images=${images.length}, Prev=${!!prevBtn}, Next=${!!nextBtn}`);
+        
+        let currentIndex = 0;
+
+        function showSlide(index) {
+          console.log(`Day ${dayIndex}: Showing slide ${index}`);
+          images.forEach((img, i) => {
+            if (i === index) {
+              img.classList.add('active');
+            } else {
+              img.classList.remove('active');
+            }
+          });
+        }
+
+        function nextSlide() {
+          currentIndex = (currentIndex + 1) % images.length;
+          showSlide(currentIndex);
+        }
+
+        function prevSlide() {
+          currentIndex = (currentIndex - 1 + images.length) % images.length;
+          showSlide(currentIndex);
+        }
+
+        // Initialize first image
+        showSlide(0);
+
+        // Button event listeners
+        if (prevBtn) {
+          prevBtn.onclick = function(e) {
+            e.preventDefault();
+            console.log('Prev clicked');
+            prevSlide();
+            return false;
+          };
+        }
+        
+        if (nextBtn) {
+          nextBtn.onclick = function(e) {
+            e.preventDefault();
+            console.log('Next clicked');
+            nextSlide();
+            return false;
+          };
+        }
+
+        // Auto-advance every 5 seconds
+        setInterval(nextSlide, 5000);
+      });
+    });
+
+    // ========== PIN CLICK & SCROLL ==========
+    // Intersection Observer für Animationen beim Scrollen
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Beobachte alle Elemente die animiert werden sollen
+    const mapSection = document.querySelector('.map-section');
+    if (mapSection) observer.observe(mapSection);
+
+    document.querySelectorAll('.itinerary-day').forEach(day => {
+      observer.observe(day);
+    });
+
+    // Pin Click Handler - Scroll zu entsprechendem Tag
+    const pins = document.querySelectorAll(".map-pin");
+    pins.forEach((pin) => {
+      pin.addEventListener("click", () => {
+        const key = pin.dataset.stop;
+        
+        // Highlight pin
+        pins.forEach(p => p.classList.remove("active"));
+        pin.classList.add("active");
+
+        // Scroll to corresponding day section
+        const daySection = document.querySelector(`.itinerary-day[data-stop="${key}"]`);
+        if (daySection) {
+          daySection.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      });
+    });
+
+    // Smooth Scroll beim Klick auf "Reise beginnen"
+    const startBtn = document.getElementById("startJourney");
+    if (startBtn) {
+      startBtn.addEventListener("click", function () {
+        const section = document.getElementById("reise");
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    }
+  </script>
+  <script src="assets/js/main.js" defer></script>
+  <footer class="site-footer" role="contentinfo">
+    <nav aria-label="Footer navigation">
+      <a href="index.html">Startseite</a> ·
+      <a href="tour.html">Tourübersicht</a> ·
+      <a href="accommodation.html">Unterkünfte</a> ·
+      <a href="buses-flights.html">Busse &amp; Flüge</a> ·
+      <a href="preparation.html">Vorbereitung</a> ·
+      <a href="terms.html">Bedingungen</a> ·
+      <a href="kontakt.html">Kontakt</a> ·
+      <a href="impressum.html">Impressum</a> ·
+      <a href="datenschutz.html">Datenschutz</a>
+    </nav>
+    <small>© 2025 Silkroad Tour · Kleinunternehmerregelung nach § 19 UStG</small>
+  </footer>
+</body>
+</html>

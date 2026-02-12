@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bald verfügbar – Silkroad Tour</title>
+  <link rel="stylesheet" href="assets/css/styles_dark_restore.css">
+  <meta name="description" content="Diese Tour ist bald verfügbar. Melden Sie sich für Updates an.">
+  <style>
+    .coming-soon-container {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    
+    .coming-soon-content {
+      max-width: 600px;
+    }
+    
+    .coming-soon-icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.05); }
+    }
+    
+    .coming-soon-title {
+      font-size: 42px;
+      font-weight: 700;
+      color: #8B4513;
+      margin-bottom: 20px;
+      font-family: 'Georgia', serif;
+    }
+    
+    .coming-soon-text {
+      font-size: 18px;
+      color: #666;
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+    
+    .glow-divider {
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, #FFD59A, transparent);
+      margin: 30px auto;
+      border-radius: 2px;
+    }
+    
+    .btn-group {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+    
+    .btn {
+      padding: 14px 30px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #8B4513 0%, #CD853F 100%);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(139, 69, 19, 0.3);
+    }
+    
+    .btn-secondary {
+      background: white;
+      color: #8B4513;
+      border: 2px solid #8B4513;
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(139, 69, 19, 0.05);
+    }
+  </style>
+</head>
+<body>
+  <!-- STICKY HEADER -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="header-logo">
+        <img src="assets/images/logo.png" alt="Silkroad Tour Logo" class="logo-img">
+        <span class="logo-text">Silkroad Tour</span>
+      </a>
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link">Startseite</a>
+        <a href="kontakt.html" class="nav-link">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="coming-soon-container">
+      <div class="coming-soon-content">
+        <div class="coming-soon-icon">🚧</div>
+        <h1 class="coming-soon-title">Bald verfügbar</h1>
+        <div class="glow-divider"></div>
+        <p class="coming-soon-text">
+          Diese Tour befindet sich derzeit in Planung. 
+          Wir arbeiten daran, Ihnen ein unvergessliches Reiseerlebnis zu bieten.
+        </p>
+        <p class="coming-soon-text">
+          <strong>Sie möchten informiert werden, sobald die Tour verfügbar ist?</strong><br>
+          Kontaktieren Sie uns gerne per E-Mail oder Telefon!
+        </p>
+        
+        <div class="btn-group">
+          <a href="index.html" class="btn btn-primary">← Zurück zur Übersicht</a>
+          <a href="kontakt.html" class="btn btn-secondary">Kontakt aufnehmen</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <nav aria-label="Footer navigation">
+      <a href="index.html">Startseite</a> ·
+      <a href="silkroad-usbekistan.html">Usbekistan Tour</a> ·
+      <a href="impressum.html">Impressum</a> ·
+      <a href="datenschutz.html">Datenschutz</a>
+    </nav>
+    <small>© 2025 Silkroad Tour · Kleinunternehmerregelung nach § 19 UStG</small>
+  </footer>
+</body>
+</html>

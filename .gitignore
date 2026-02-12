@@ -1,0 +1,151 @@
+# ========================================
+# SENSIBLE DATEN - NIEMALS COMMITTEN!
+# ========================================
+
+# Datenbank-Konfigurationen mit Passwörtern
+silkroad_db/db.php
+api/config.php
+**/db.php
+**/config.php
+
+# Backup-Ordner (alte Versionen)
+*Kopie*/
+*_backup/
+*_old/
+
+# ========================================
+# LOGS & TEMPORÄRE DATEIEN
+# ========================================
+
+*.log
+*.tmp
+_tmp/
+error_log
+debug.log
+
+# Rate-Limit & Session Dateien
+/tmp/
+rate_limit_*.json
+
+# ========================================
+# BACKUP & ARCHIV
+# ========================================
+
+*.bak
+*.backup
+*.old
+*.orig
+*.swp
+*.swo
+*~
+
+# ========================================
+# BETRIEBSSYSTEM
+# ========================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# ========================================
+# EDITOREN & IDEs
+# ========================================
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# JetBrains (PHPStorm, WebStorm, etc.)
+.idea/
+*.iml
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+[._]*.s[a-v][a-z]
+[._]s[a-v][a-z]
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ========================================
+# FTP & DEPLOYMENT
+# ========================================
+
+# FTP-Konfigurationen
+*.ftp
+sftp-config.json
+deploy.php
+.ftpconfig
+
+# ========================================
+# NODE & NPM (falls später verwendet)
+# ========================================
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# ========================================
+# PHP SPEZIFISCH
+# ========================================
+
+# Composer (falls verwendet)
+/vendor/
+composer.lock
+
+# PHPUnit
+.phpunit.result.cache
+
+# ========================================
+# DATENBANK DUMPS
+# ========================================
+
+*.sql
+*.sql.gz
+*.sqlite
+*.db
+
+# Aber NICHT die Schema-Datei (falls vorhanden)
+!schema.sql
+!database-structure.sql
+
+# ========================================
+# UPLOADS & USER CONTENT (optional)
+# ========================================
+
+# Falls später User-Uploads kommen
+/uploads/*
+!/uploads/.gitkeep
+
+# ========================================
+# ENVIRONMENT FILES
+# ========================================
+
+.env
+.env.local
+.env.*.local
