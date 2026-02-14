@@ -9,13 +9,11 @@
   <style>
     .tours-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 30px;
-      margin: 60px 0;
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 0 20px;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 40px;
+      margin: 60px auto;
+      max-width: 1600px;
+      padding: 0 4rem;
     }
     
     .tour-card {
@@ -150,16 +148,21 @@
   </header>
 
   <main>
-    <!-- Hero Section -->
-    <section class="hero-section">
-      <h1 class="hero-title">🌍 Unvergessliche Seidenstraßen-Touren</h1>
-      <div class="glow-divider"></div>
-      <p class="hero-subtitle">
-        Erleben Sie die faszinierende Welt der historischen Seidenstraße. 
-        Von den prächtigen Städten Usbekistans bis zu weiteren einzigartigen Destinationen – 
-        entdecken Sie unsere sorgfältig kuratierten Reisen.
-      </p>
+    <!-- Intro Section -->
+    <section class="section" style="padding: 120px 1.5rem 0px; text-align: center;">
+      <h2 style="font-size: 1.8rem; color: #333; font-weight: 300; letter-spacing: 0.08em; margin-bottom: 1.5rem; font-family: 'Georgia', serif;">Entdecken Sie die Seidenstraße</h2>
+      <div style="display: flex; justify-content: center; align-items: center; gap: 0.8rem; margin-bottom: 3rem;">
+        <div style="flex: 1; height: 1px; background: linear-gradient(90deg, transparent, #999);"></div>
+        <span style="font-size: 0.8rem; color: #999;">◊</span>
+        <span style="font-size: 1rem; color: #777;">◊</span>
+        <span style="font-size: 1.8rem; color: #666;">✦</span>
+        <span style="font-size: 1rem; color: #777;">◊</span>
+        <span style="font-size: 0.8rem; color: #999;">◊</span>
+        <div style="flex: 1; height: 1px; background: linear-gradient(90deg, #999, transparent);"></div>
+      </div>
     </section>
+
+    <!-- Tours Grid -->
 
     <!-- Tours Grid -->
     <section class="section">
@@ -214,6 +217,135 @@
           </div>
         </a>
 
+      </div>
+    </section>
+
+    <!-- Customer Reviews Section -->
+    <section class="reviews-section" style="max-width: 1600px; margin: 80px auto; padding: 0 4rem;">
+      <h2 style="font-size: 2rem; color: #333; font-weight: 300; text-align: center; margin-bottom: 3rem; letter-spacing: 0.05em;">Kundenbewertungen</h2>
+      
+      <div style="position: relative; overflow: hidden; background: #fff; border-radius: 12px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+        <div class="reviews-carousel" style="display: flex; transition: transform 0.8s ease-in-out;">
+          
+          <!-- Review 1 -->
+          <div class="review-item" style="min-width: 100%; padding: 20px;">
+            <div style="text-align: center;">
+              <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 1.5rem;">
+                <span style="color: #FF8542; font-size: 1.5rem;">★</span>
+                <span style="color: #FF8542; font-size: 1.5rem;">★</span>
+                <span style="color: #FF8542; font-size: 1.5rem;">★</span>
+                <span style="color: #FF8542; font-size: 1.5rem;">★</span>
+                <span style="color: #FF8542; font-size: 1.5rem;">★</span>
+              </div>
+              <p style="font-size: 1.1rem; color: #333; line-height: 1.8; margin-bottom: 1.5rem; font-style: italic;">
+                "Eine unvergessliche Reise! Die Gastfreundschaft in Usbekistan war unglaublich und jeder Moment war magisch."
+              </p>
+              <p style="color: #FF8542; font-weight: 600; font-size: 0.95rem;">Anna Müller</p>
+              <p style="color: #999; font-size: 0.9rem;">Usbekistan Tour · März 2024</p>
+              <span style="display: inline-block; background: rgba(255, 133, 66, 0.1); color: #FF8542; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; margin-top: 0.5rem; border: 1px solid rgba(255, 133, 66, 0.3);">DEMO-REZENSION</span>
+            </div>
+          </div>
+
+          <!-- Review 2 -->
+          <div class="review-item" style="min-width: 100%; padding: 20px;">
+            <div style="text-align: center;">
+              <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 1.5rem;">
+                <span style="color: #FF8542; font-size: 1.5rem;">★</span>
+                <span style="color: #FF8542; font-size: 1.5rem;">★</span>
+                <span style="color: #FF8542; font-size: 1.5rem;">★</span>
+                <span style="color: #FF8542; font-size: 1.5rem;">★</span>
+                <span style="color: #FF8542; font-size: 1.5rem;">★</span>
+              </div>
+              <p style="font-size: 1.1rem; color: #333; line-height: 1.8; margin-bottom: 1.5rem; font-style: italic;">
+                "Perfekt organisiert! Der Guide war sehr kenntnisreich und hat uns die Geschichte der Seidenstraße lebendig gemacht."
+              </p>
+              <p style="color: #FF8542; font-weight: 600; font-size: 0.95rem;">Michael Schmidt</p>
+              <p style="color: #999; font-size: 0.9rem;">Usbekistan Tour · Februar 2024</p>
+              <span style="display: inline-block; background: rgba(255, 133, 66, 0.1); color: #FF8542; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; margin-top: 0.5rem; border: 1px solid rgba(255, 133, 66, 0.3);">DEMO-REZENSION</span>
+            </div>
+          </div>
+
+          <!-- Review 3 -->
+          <div class="review-item" style="min-width: 100%; padding: 20px;">
+            <div style="text-align: center;">
+              <div style="display: flex; justify-content: center; gap: 4px; margin-bottom: 1.5rem;">
+                <span style="color: #FF8542; font-size: 1.5rem;">★</span>
+                <span style="color: #FF8542; font-size: 1.5rem;">★</span>
+                <span style="color: #FF8542; font-size: 1.5rem;">★</span>
+                <span style="color: #FF8542; font-size: 1.5rem;">★</span>
+                <span style="color: #FF8542; font-size: 1.5rem;">★</span>
+              </div>
+              <p style="font-size: 1.1rem; color: #333; line-height: 1.8; margin-bottom: 1.5rem; font-style: italic;">
+                "Die besten Reiseerlebnisse, die ich je hatte! Samarkand hat mein Herz gestohlen. Sehr zu empfehlen!"
+              </p>
+              <p style="color: #FF8542; font-weight: 600; font-size: 0.95rem;">Sarah Bergmann</p>
+              <p style="color: #999; font-size: 0.9rem;">Usbekistan Tour · Januar 2024</p>
+              <span style="display: inline-block; background: rgba(255, 133, 66, 0.1); color: #FF8542; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; margin-top: 0.5rem; border: 1px solid rgba(255, 133, 66, 0.3);">DEMO-REZENSION</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <script>
+        const carousel = document.querySelector('.reviews-carousel');
+        const reviewItems = document.querySelectorAll('.review-item');
+        let currentIndex = 0;
+
+        function rotateReviews() {
+          currentIndex = (currentIndex + 1) % reviewItems.length;
+          const offset = -currentIndex * 100;
+          carousel.style.transform = `translateX(${offset}%)`;
+        }
+
+        // Rotate every 5 seconds
+        setInterval(rotateReviews, 5000);
+      </script>
+    </section>
+
+    <!-- Team / Tourguides Section -->
+    <section style="max-width: 1600px; margin: 100px auto; padding: 0 4rem;">
+      <h2 style="font-size: 2rem; color: #333; font-weight: 300; text-align: center; margin-bottom: 4rem; letter-spacing: 0.05em;">Ihre Tourguides</h2>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 60px; align-items: center;">
+        
+        <!-- Rahmaty -->
+        <div style="background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+          <img src="assets/images/Rahmaty.jpeg" alt="Rahmaty - Tourguide" style="width: 100%; height: 300px; object-fit: contain; display: block; background: #f5f5f5;">
+          <div style="padding: 2rem;">
+            <h3 style="font-size: 1.5rem; color: #333; margin-bottom: 0.5rem;">Rahmaty</h3>
+            <p style="color: #FF8542; font-weight: 600; margin-bottom: 1rem; font-size: 0.95rem;">Ihr Tourguide & Reiseexperte</p>
+            <p style="color: #555; line-height: 1.8; margin-bottom: 1.5rem;">
+              Beispieltext
+            </p>
+            <div style="padding-top: 1rem; border-top: 1px solid #e0e0e0;">
+              <p style="color: #666; font-size: 0.9rem;"><strong>Sprachen:</strong> Deutsch, Englisch, Usbekisch</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rahmaty's Frau -->
+        <div style="background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+          <img src="assets/images/Rahmaty_Frau.jpeg" alt="Rahmaty's Frau - Tourguide" style="width: 100%; height: 300px; object-fit: contain; display: block; background: #f5f5f5;">
+          <div style="padding: 2rem;">
+            <h3 style="font-size: 1.5rem; color: #333; margin-bottom: 0.5rem;">Platzhalter</h3>
+            <p style="color: #FF8542; font-weight: 600; margin-bottom: 1rem; font-size: 0.95rem;">Ihre Co-Tourguide & Kulturvermittlerin</p>
+            <p style="color: #555; line-height: 1.8; margin-bottom: 1.5rem;">
+              Beispieltext
+            </p>
+            <div style="padding-top: 1rem; border-top: 1px solid #e0e0e0;">
+              <p style="color: #666; font-size: 0.9rem;"><strong>Sprachen:</strong> Deutsch, Englisch, Usbekisch, Tajikisch</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="text-align: center; margin-top: 3rem;">
+        <p style="color: #666; font-size: 1.1rem; line-height: 1.8;">
+          Have any questions? Our team is ready to help! 📞<br>
+          <span style="color: #FF8542; font-weight: 600; font-size: 1.3rem;">0221 93372 466</span>
+        </p>
       </div>
     </section>
   </main>

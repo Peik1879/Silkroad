@@ -47,7 +47,7 @@
 
       <!-- Runder Button -->
       <button class="start-circle" id="startJourney">
-        Reise<br>beginnen
+        Interaktive<br>Karte
       </button>
 
       <!-- Buttons unter Reise beginnen -->
@@ -55,6 +55,13 @@
         <a href="#anmeldung" class="btn btn-primary">Jetzt anmelden</a>
         <a href="tour.html" class="btn">Termine &amp; Preise</a>
         <a href="kontakt.html" class="btn">Kontakt &amp; Rückruf</a>
+      </div>
+
+      <!-- Zusätzliche Buttons -->
+      <div class="btn-row" style="margin-top: 1rem;">
+        <button class="btn" id="callbackBtn" style="opacity: 0; cursor: default;" disabled></button>
+        <button class="btn" id="summaryBtn">Kurze Zusammenfassung</button>
+        <button class="btn" style="opacity: 0; cursor: default;" disabled></button>
       </div>
     </div>
 
@@ -436,8 +443,8 @@
     <div class="dates-grid">
       <article class="date-card">
         <div class="date-header">
-          <div class="month">April</div>
-          <div class="days">06.–17.</div>
+          <div class="month">März–April</div>
+          <div class="days">30.03.–10.04.</div>
           <div class="year">2026</div>
         </div>
         <div class="date-status status-ok">
@@ -447,10 +454,49 @@
         <a href="#anmeldung" class="btn btn-primary">Jetzt buchen</a>
       </article>
 
-      <article class="date-card featured">
+      <article class="date-card">
         <div class="date-header">
           <div class="month">Mai</div>
-          <div class="days">11.–22.</div>
+          <div class="days">01.05.–12.05.</div>
+          <div class="year">2026</div>
+        </div>
+        <div class="date-status status-ok">
+          <span class="status-dot"></span>
+          Restplätze verfügbar
+        </div>
+        <a href="#anmeldung" class="btn btn-primary">Jetzt buchen</a>
+      </article>
+
+      <article class="date-card">
+        <div class="date-header">
+          <div class="month">Mai–Juni</div>
+          <div class="days">20.05.–01.06.</div>
+          <div class="year">2026</div>
+        </div>
+        <div class="date-status status-ok">
+          <span class="status-dot"></span>
+          Restplätze verfügbar
+        </div>
+        <a href="#anmeldung" class="btn btn-primary">Jetzt buchen</a>
+      </article>
+
+      <article class="date-card">
+        <div class="date-header">
+          <div class="month">September</div>
+          <div class="days">01.09.–12.09.</div>
+          <div class="year">2026</div>
+        </div>
+        <div class="date-status status-early">
+          <span class="status-dot"></span>
+          Frühbucher-Vorteil
+        </div>
+        <a href="#anmeldung" class="btn btn-primary">Jetzt buchen</a>
+      </article>
+
+      <article class="date-card featured">
+        <div class="date-header">
+          <div class="month">September</div>
+          <div class="days">15.09.–27.09.</div>
           <div class="year">2026</div>
         </div>
         <div class="date-status status-guaranteed">
@@ -462,16 +508,33 @@
 
       <article class="date-card">
         <div class="date-header">
-          <div class="month">September</div>
-          <div class="days">08.–19.</div>
+          <div class="month">Oktober</div>
+          <div class="days">01.10.–12.10.</div>
           <div class="year">2026</div>
         </div>
-        <div class="date-status status-early">
+        <div class="date-status status-ok">
           <span class="status-dot"></span>
-          Frühbucher-Vorteil
+          Restplätze verfügbar
         </div>
         <a href="#anmeldung" class="btn btn-primary">Jetzt buchen</a>
       </article>
+
+      <article class="date-card">
+        <div class="date-header">
+          <div class="month">Oktober</div>
+          <div class="days">15.10.–27.10.</div>
+          <div class="year">2026</div>
+        </div>
+        <div class="date-status status-ok">
+          <span class="status-dot"></span>
+          Restplätze verfügbar
+        </div>
+        <a href="#anmeldung" class="btn btn-primary">Jetzt buchen</a>
+      </article>
+    </div>
+
+    <div style="background: rgba(255, 133, 66, 0.1); border-left: 4px solid #FF8542; padding: 1.5rem; border-radius: 8px; margin: 2rem 0; text-align: center;">
+      <p style="color: #333; font-weight: 600; margin: 0;">🛑 Anmeldeschluss: jeweils 3 Monate vor Reisebeginn</p>
     </div>
 
     <div class="pricing-divider"></div>
@@ -643,6 +706,17 @@
     const startBtn = document.getElementById("startJourney");
     if (startBtn) {
       startBtn.addEventListener("click", function () {
+        const section = document.getElementById("reise");
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    }
+
+    // Smooth Scroll beim Klick auf "Kurze Zusammenfassung"
+    const summaryBtn = document.getElementById("summaryBtn");
+    if (summaryBtn) {
+      summaryBtn.addEventListener("click", function () {
         const section = document.getElementById("reise");
         if (section) {
           section.scrollIntoView({ behavior: "smooth" });
