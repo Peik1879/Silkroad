@@ -10,13 +10,22 @@ ini_set('log_errors', 1);
 ob_start();
 header('Content-Type: application/json; charset=utf-8');
 
-function respond(int $code, array $payload): void {
-    http_response_code($code);
-    if (ob_get_length() !== false) {
-        ob_clean();
+// DB und Mailer früh laden (wird von respond() benötigt)
+try {
+    if (!file_exists(__DIR__ . '/db.php')) {
+        http_response_code(500);
+        die(json_encode(['error' => 'db.php not found']));
     }
-    echo json_encode($payload);
-    exit;
+    require_once __DIR__ . '/db.php';
+
+    if (!file_exists(__DIR__ . '/mailer.php')) {
+        http_response_code(500);
+        die(json_encode(['error' => 'mailer.php not found']));
+    }
+    require_once __DIR__ . '/mailer.php';
+} catch (Exception $e) {
+    http_response_code(500);
+    die(json_encode(['error' => 'Initialisierungsfehler: ' . $e->getMessage()]));
 }
 
 // Nur POST erlauben
@@ -31,14 +40,11 @@ if (!$data) {
     respond(400, ['error' => 'Invalid JSON']);
 }
 
-// Konfiguration laden
-require_once __DIR__ . '/db.php';
-require_once __DIR__ . '/mailer.php';
-
 // Validierung
 $email = trim($data['email'] ?? '');
 $name = trim($data['name'] ?? '');
 $message = trim($data['message'] ?? '');
+$tour = trim($data['tour'] ?? '');
 
 if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     respond(400, ['error' => 'Gültige E-Mail ist erforderlich']);
@@ -51,8 +57,9 @@ if (empty($message)) {
 $subject = 'Kontaktanfrage: ' . ($name ? $name : $email);
 $body = "Neue Kontaktanfrage:\n\n" .
         "Name: " . ($name ?: '—') . "\n" .
-        "Email: $email\n\n" .
-        "Nachricht:\n$message\n\n" .
+        "Email: $email\n" .
+        ($tour ? "Interesse an Tour: $tour\n" : "") .
+        "\nNachricht:\n$message\n\n" .
         "Zeitstempel: " . date('d.m.Y H:i:s') . "\n" .
         "---\nDiese Email wurde automatisch generiert.";
 

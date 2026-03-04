@@ -34,8 +34,7 @@ function sendEmail($to, $subject, $body, $isHTML = true, $replyTo = null) {
         
         file_put_contents(__DIR__ . '/mail_debug.log', $logEntry, FILE_APPEND);
         return true;
-    }    cd "C:\Users\peik_\Desktop\Papierkrieg\Aaron Köhler\Arbeit\Silkroad"
-    php -S 127.0.0.1:8000 -t Silkroad
+    }
     
     // SMTP-Versand mit PHPMailer
     $mail = new PHPMailer(true);

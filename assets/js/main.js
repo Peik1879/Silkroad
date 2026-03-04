@@ -14,6 +14,9 @@
     lazyImages();
     initMapPopup();
     initDetailsPopup();
+    prefillDateFromURL();
+    initUsbekistanHeroVideo();
+    loadAvailableTours(); // Load tours from database
   });
 
   // ------------------ Cookie banner ------------------
@@ -176,6 +179,37 @@
     });
   }
 
+  // ------------------ Usbekistan hero video ------------------
+  function initUsbekistanHeroVideo() {
+    const video = document.getElementById('heroVideo');
+    if (!video) return;
+    const heroSub = document.getElementById('heroSub');
+
+    function showHeroSub() {
+      if (!heroSub) return;
+      heroSub.classList.remove('is-hidden');
+      heroSub.classList.add('is-visible');
+    }
+
+    video.classList.add('is-active');
+    video.currentTime = 0;
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(() => {
+        // Autoplay might be blocked; still show the poster briefly.
+        showHeroSub();
+      });
+    }
+
+    video.addEventListener('ended', showHeroSub);
+
+    window.setTimeout(() => {
+      video.classList.add('is-hidden');
+      video.pause();
+      showHeroSub();
+    }, 6000);
+  }
+
   // ------------------ Registration form validation & submission ------------------
   function initRegistrationForm() {
     const form = document.getElementById('registrationForm');
@@ -256,6 +290,13 @@
         return;
       }
 
+      const abflughafen = form.querySelector('#abflughafen')?.value;
+      if (!abflughafen) {
+        showError('Bitte wählen Sie einen Abflughafen aus.');
+        form.querySelector('#abflughafen')?.focus();
+        return;
+      }
+
       if (erwachsene < 1) {
         showError('Es muss mindestens ein Erwachsener mitreisen.');
         erwachseneEl?.focus();
@@ -291,6 +332,7 @@
           phone: telefon,
           tour: reisedatum,
           travel_date: reisedatum.split('-')[0], // Nimmt erstes Datum
+          abflughafen: abflughafen,
           adults: erwachsene,
           children: kinder,
           toddlers: kleinkinder,
@@ -449,15 +491,22 @@
     const stickers = document.querySelectorAll('.map-pin.sticker');
     const detailsPopup = document.getElementById('detailsPopup');
     const closeButton = document.getElementById('closeDetailsPopup');
+    const prevNavBtn = document.getElementById('detailsNavPrev');
+    const nextNavBtn = document.getElementById('detailsNavNext');
     
     if (!detailsPopup || !closeButton) return;
+
+    let currentStopId = null;
+    const stopIds = Array.from(stickers).map(s => s.dataset.stop);
 
     // Add click handlers to all stickers
     stickers.forEach(sticker => {
       sticker.addEventListener('click', (e) => {
         e.stopPropagation(); // Prevent closing map popup
         const stopId = sticker.dataset.stop;
+        currentStopId = stopId;
         showDetailsForStop(stopId);
+        updateNavButtons();
       });
     });
 
@@ -465,6 +514,29 @@
     closeButton.addEventListener('click', () => {
       detailsPopup.style.display = 'none';
     });
+
+    // Navigation buttons
+    if (prevNavBtn) {
+      prevNavBtn.addEventListener('click', () => {
+        const currentIndex = stopIds.indexOf(currentStopId);
+        if (currentIndex > 0) {
+          currentStopId = stopIds[currentIndex - 1];
+          showDetailsForStop(currentStopId);
+          updateNavButtons();
+        }
+      });
+    }
+
+    if (nextNavBtn) {
+      nextNavBtn.addEventListener('click', () => {
+        const currentIndex = stopIds.indexOf(currentStopId);
+        if (currentIndex < stopIds.length - 1) {
+          currentStopId = stopIds[currentIndex + 1];
+          showDetailsForStop(currentStopId);
+          updateNavButtons();
+        }
+      });
+    }
 
     // Close when clicking outside
     detailsPopup.addEventListener('click', (e) => {
@@ -480,9 +552,42 @@
       }
     });
 
+    function updateNavButtons() {
+      if (!prevNavBtn || !nextNavBtn) return;
+      const currentIndex = stopIds.indexOf(currentStopId);
+      
+      // Update prev button
+      if (currentIndex > 0) {
+        prevNavBtn.style.opacity = '1';
+        prevNavBtn.style.pointerEvents = 'auto';
+        const prevStopId = stopIds[currentIndex - 1];
+        const prevDayElement = document.querySelector(`.accordion-item[data-stop="${prevStopId}"]`);
+        const prevTag = prevDayElement?.querySelector('.day-text h3')?.textContent || '';
+        document.getElementById('prevNavTag').textContent = prevTag;
+      } else {
+        prevNavBtn.style.opacity = '0.4';
+        prevNavBtn.style.pointerEvents = 'none';
+        document.getElementById('prevNavTag').textContent = '';
+      }
+      
+      // Update next button
+      if (currentIndex < stopIds.length - 1) {
+        nextNavBtn.style.opacity = '1';
+        nextNavBtn.style.pointerEvents = 'auto';
+        const nextStopId = stopIds[currentIndex + 1];
+        const nextDayElement = document.querySelector(`.accordion-item[data-stop="${nextStopId}"]`);
+        const nextTag = nextDayElement?.querySelector('.day-text h3')?.textContent || '';
+        document.getElementById('nextNavTag').textContent = nextTag;
+      } else {
+        nextNavBtn.style.opacity = '0.4';
+        nextNavBtn.style.pointerEvents = 'none';
+        document.getElementById('nextNavTag').textContent = '';
+      }
+    }
+
     function showDetailsForStop(stopId) {
       // Find the corresponding itinerary day
-      const dayElement = document.querySelector(`.itinerary-day[data-stop="${stopId}"]`);
+      const dayElement = document.querySelector(`.accordion-item[data-stop="${stopId}"]`);
       if (!dayElement) return;
 
       const dayContent = dayElement.querySelector('.day-content');
@@ -548,6 +653,201 @@
         showSlide(currentIndex);
       };
     }
+  }
+
+  // ------------------ Prefill date from URL parameter ------------------
+  function prefillDateFromURL() {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const dateParam = urlParams.get('date');
+      
+      if (dateParam) {
+        const reisedatumSelect = document.getElementById('reisedatum');
+        if (reisedatumSelect) {
+          // Try to find and select the matching option
+          const options = reisedatumSelect.options;
+          for (let i = 0; i < options.length; i++) {
+            if (options[i].value === dateParam) {
+              reisedatumSelect.selectedIndex = i;
+              break;
+            }
+          }
+        }
+      }
+    } catch (e) {
+      console.error('Error prefilling date:', e);
+    }
+  }
+
+  // ========== COMPACT DATE SELECTION ==========
+  function initCompactDateSelection() {
+    const compactDateOptions = document.querySelectorAll('.compact-date-option');
+    
+    compactDateOptions.forEach(option => {
+      // Remove old listener if exists
+      option.replaceWith(option.cloneNode(true));
+    });
+    
+    // Re-select after cloning
+    const refreshedOptions = document.querySelectorAll('.compact-date-option');
+    
+    refreshedOptions.forEach(option => {
+      option.addEventListener('click', function() {
+        const dateValue = this.getAttribute('data-date');
+        if (dateValue) {
+          // Try to select directly in the form first (if on same page)
+          const reisedatumSelect = document.getElementById('reisedatum');
+          if (reisedatumSelect) {
+            // Find matching option in dropdown
+            const options = reisedatumSelect.options;
+            for (let i = 0; i < options.length; i++) {
+              if (options[i].value === dateValue) {
+                reisedatumSelect.selectedIndex = i;
+                // Scroll to form
+                document.getElementById('anmeldung').scrollIntoView({ 
+                  behavior: 'smooth', 
+                  block: 'start' 
+                });
+                return;
+              }
+            }
+          }
+          
+          // Fallback: Navigate with URL parameter
+          window.location.href = `?date=${dateValue}#anmeldung`;
+        }
+      });
+    });
+  }
+
+  // Initialize compact date selection (will be called again after dynamic load)
+  initCompactDateSelection();
+
+  // ------------------ Load Available Tours from Database ------------------
+  function loadAvailableTours() {
+    const reisedatumSelect = document.getElementById('reisedatum');
+    const tourSelect = document.getElementById('contact-tour'); // For contact form
+    const termineList = document.getElementById('termine-list'); // Visual date selection list
+    
+    // Only load if these elements exist on the page
+    if (!reisedatumSelect && !tourSelect && !termineList) return;
+
+    fetch('api/tours_available.php')
+      .then(response => response.json())
+      .then(data => {
+        if (!data.success || !data.tours) {
+          console.warn('Keine Touren verfügbar');
+          return;
+        }
+
+        // Use all tours for display, but only non-full tours for booking dropdowns
+        const availableTours = data.tours;
+        const bookableTours = availableTours.filter(tour => {
+          const participants = Number(tour.current_participants) || 0;
+          const maxParticipants = Number(tour.max_participants) || 10;
+          return participants < maxParticipants;
+        });
+
+        // Fill reisedatum dropdown (for tour page form)
+        if (reisedatumSelect) {
+          if (bookableTours.length > 0) {
+            bookableTours.forEach(tour => {
+              const startDate = formatDate(tour.start_date);
+              const endDate = formatDate(tour.end_date);
+              const dateRange = `${startDate} - ${endDate}`;
+              const option = new Option(dateRange, dateRange);
+              option.dataset.tourId = tour.id;
+              option.dataset.tourName = tour.name;
+              reisedatumSelect.add(option);
+            });
+          } else {
+            const option = new Option('Keine Termine verfügbar', '');
+            option.disabled = true;
+            reisedatumSelect.add(option);
+          }
+        }
+
+        // Fill visual termine-list (for presentation section)
+        if (termineList && availableTours.length > 0) {
+          termineList.innerHTML = ''; // Clear existing content
+          
+          availableTours.forEach(tour => {
+            const startDate = formatDateLong(tour.start_date);
+            const endDate = formatDateLong(tour.end_date);
+            const dateRange = `${startDate} – ${endDate}`;
+            const shortRange = `${formatDate(tour.start_date)} - ${formatDate(tour.end_date)}`;
+            
+            // Calculate status
+            const participants = tour.current_participants || 0;
+            const maxParticipants = tour.max_participants || 10;
+            let statusText = 'Restplätze verfügbar';
+            let statusClass = 'status-available';
+            let isFeatured = false;
+            
+            if (participants >= maxParticipants) {
+              statusText = 'Ausgebucht';
+              statusClass = 'status-full';
+            } else if (participants >= 4) {
+              statusText = 'Garantiert';
+              statusClass = 'status-guaranteed';
+              isFeatured = true;
+            }
+            
+            // Format price
+            const price = Number(tour.price_per_person).toFixed(0);
+            
+            // Create HTML
+            const optionDiv = document.createElement('div');
+            optionDiv.className = 'compact-date-option' + (isFeatured ? ' featured' : '');
+            optionDiv.dataset.date = shortRange;
+            
+            optionDiv.innerHTML = `
+              <div class="compact-date-info">
+                <div class="compact-date-main">${dateRange}</div>
+                <div class="compact-date-status ${statusClass}">${statusText}</div>
+              </div>
+              <div class="compact-date-price">ab ${price} €</div>
+            `;
+            
+            termineList.appendChild(optionDiv);
+          });
+          
+          // After adding all date options, initialize click events
+          initCompactDateSelection();
+        }
+
+        // Fill tour dropdown (for contact form - all tours)
+        if (tourSelect) {
+          const uniqueTours = [...new Set(data.tours.map(t => t.name))];
+          
+          uniqueTours.forEach(tourName => {
+            const option = new Option(tourName, tourName);
+            tourSelect.add(option);
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Fehler beim Laden der Touren:', error);
+      });
+  }
+
+  // Helper function to format dates (YYYY-MM-DD -> DD.MM.YYYY)
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
+  }
+
+  // Helper function to format dates with month names (YYYY-MM-DD -> "30. März 2026")
+  function formatDateLong(dateString) {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const monthNames = ['Jan', 'Feb', 'März', 'April', 'Mai', 'Juni', 'Juli', 'Aug', 'Sept', 'Okt', 'Nov', 'Dez'];
+    const month = monthNames[date.getMonth()];
+    const year = date.getFullYear();
+    return `${day}. ${month} ${year}`;
   }
 
 })();

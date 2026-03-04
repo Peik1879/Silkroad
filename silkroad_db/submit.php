@@ -13,15 +13,22 @@ ob_start();
 // Content-Type früh setzen; Response-Code wird je nach Ergebnis gesetzt
 header('Content-Type: application/json; charset=utf-8');
 
-// Einheitliche JSON-Antwortfunktion
-function respond(int $code, array $payload): void {
-    http_response_code($code);
-    // sicherstellen, dass keine vorherige Ausgabe im Buffer ist
-    if (ob_get_length() !== false) {
-        ob_clean();
+// DB und Mailer früh laden (wird von respond() benötigt)
+try {
+    if (!file_exists(__DIR__ . '/db.php')) {
+        http_response_code(500);
+        die(json_encode(['error' => 'db.php not found']));
     }
-    echo json_encode($payload);
-    exit;
+    require_once __DIR__ . '/db.php';
+
+    if (!file_exists(__DIR__ . '/mailer.php')) {
+        http_response_code(500);
+        die(json_encode(['error' => 'mailer.php not found']));
+    }
+    require_once __DIR__ . '/mailer.php';
+} catch (Exception $e) {
+    http_response_code(500);
+    die(json_encode(['error' => 'Initialisierungsfehler: ' . $e->getMessage()]));
 }
 
 // Log-Datei für Debugging
@@ -59,18 +66,6 @@ if (!$data) {
     respond(400, ['error' => 'Invalid JSON']);
 }
 
-// DB-Verbindung laden
-if (!file_exists(__DIR__ . '/db.php')) {
-    respond(500, ['error' => 'db.php not found']);
-}
-require_once __DIR__ . '/db.php';
-
-// Mailer laden
-if (!file_exists(__DIR__ . '/mailer.php')) {
-    respond(500, ['error' => 'mailer.php not found']);
-}
-require_once __DIR__ . '/mailer.php';
-
 // ===== INPUT VALIDIEREN =====
 $errors = [];
 
@@ -86,16 +81,22 @@ if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $errors[] = 'Gültige E-Mail ist erforderlich';
 }
 
-// Telefon
+// Telefon - optional (schöner zu haben, aber nicht kritisch)
 $phone = trim($data['phone'] ?? '');
 if (empty($phone)) {
-    $errors[] = 'Telefonnummer ist erforderlich';
+    $phone = '+49'; // Fallback
 }
 
 // Tour (Reisedatum-String)
 $tour = trim($data['tour'] ?? '');
 if (empty($tour)) {
     $errors[] = 'Reisedatum ist erforderlich';
+}
+
+// Abflughafen - optional
+$abflughafen = trim($data['abflughafen'] ?? '');
+if (empty($abflughafen)) {
+    $abflughafen = 'Nicht angegeben'; // Fallback
 }
 
 // Travel Date - konvertiere erstes Datum aus dem String
@@ -128,8 +129,8 @@ if (!empty($errors)) {
 try {
     $stmt = $pdo->prepare('
         INSERT INTO tour_requests 
-        (name, email, phone, tour, travel_date, adults, children, toddlers, message)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        (name, email, phone, tour, travel_date, abflughafen, adults, children, toddlers, message)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ');
     
     $stmt->execute([
@@ -138,6 +139,7 @@ try {
         $phone,
         $tour,
         $travel_date,
+        $abflughafen,
         $adults,
         $children,
         $toddlers,
@@ -146,6 +148,31 @@ try {
     
     
     $booking_id = $pdo->lastInsertId();
+    
+    // ===== TEILNEHMERZÄHLER AKTUALISIEREN =====
+    try {
+        // Gesamtzahl Personen für diese Buchung
+        $total_persons = $adults + $children + $toddlers;
+        
+        // Finde die passende Tour anhand des Datums
+        // Format von $tour: "04.03.2026 - 15.03.2026"
+        if (preg_match('/(\d{2})\.(\d{2})\.(\d{4})\s*-\s*(\d{2})\.(\d{2})\.(\d{4})/', $tour, $matches)) {
+            $start_date = $matches[3] . '-' . $matches[2] . '-' . $matches[1]; // YYYY-MM-DD
+            $end_date = $matches[6] . '-' . $matches[5] . '-' . $matches[4];   // YYYY-MM-DD
+            
+            // Aktualisiere den Teilnehmerzähler für diese Tour
+            $update_stmt = $pdo->prepare('
+                UPDATE tours 
+                SET current_participants = current_participants + ? 
+                WHERE start_date = ? AND end_date = ?
+                LIMIT 1
+            ');
+            $update_stmt->execute([$total_persons, $start_date, $end_date]);
+        }
+    } catch (Exception $e) {
+        error_log("Fehler beim Aktualisieren des Teilnehmerzählers: " . $e->getMessage());
+        // Nicht abbrechen - Buchung ist bereits gespeichert
+    }
     
     // ===== EMAILS VERSENDEN =====
     
@@ -162,6 +189,7 @@ PERSÖNLICHE DATEN:
 REISEDATEN:
 - Reisetermin: $tour
 - Reisedatum: $travel_date
+- Abflughafen: $abflughafen
 - Erwachsene: $adults
 - Kinder: $children
 - Kleinkinder: $toddlers

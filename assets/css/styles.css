@@ -282,7 +282,7 @@ h1 {
 .map-section {
   position: relative;
   padding: 4rem 1.5rem 3rem;
-  background: #f8f9fa;
+  background: #ffffff;
   background-attachment: fixed;
   min-height: 100vh;
   display: flex;
@@ -293,15 +293,6 @@ h1 {
 }
 
 /* Atmospheric vignette overlay */
-.map-section::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.03) 100%);
-  pointer-events: none;
-  z-index: 1;
-}
-
 /* Subtle grain texture */
 .map-section::after {
   content: '';
@@ -664,7 +655,7 @@ h1 {
   position: relative;
   width: 100%;
   height: 400px;
-  background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);
+  background: #ffffff;
   border-radius: 12px;
   overflow: hidden;
   display: flex;
@@ -682,7 +673,7 @@ h1 {
   object-fit: cover;
   opacity: 0;
   transition: opacity 1s ease-in-out;
-  background-color: #333;
+  background-color: #ffffff;
 }
 
 .slide-image.active {
